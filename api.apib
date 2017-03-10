@@ -1,0 +1,125 @@
+FORMAT: 1A
+HOST: http://users.floripa.sc.python.org.br/
+
+# Pyzza Users
+
+Sample API Blueprint example for Pyzza lovers!
+
+# Group Users
+
+## Users [/api/v1/users/]
+
+### Users List [GET /api/v1/users/{?search}]
++ Parameters
+    + search: `python` (string) - Search for Users.
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes
+        + pagination (Pagination)
+        + data (array[Users])
+        + links (array)
+            + (Rel Users Self)
+
+### Users Detail [GET /api/v1/users/{username}/]
++ Parameters
+    + username: `jonatasbadlin` (string, required) - User's username.
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes
+        + pagination
+        + data (Users)
+        + links (array)
+            + (Rel User Self)
+            + (Rel Users Followers)
+
+### Users Creation [POST /api/v1/users/]
++ Request (application/json)
+
+    + Attributes (Users POST)
+
++ Response 201 (application/json)
+    
+    + Attributes
+        + pagination
+        + data (Users)
+        + links (array)
+            + (Rel User Self)
+            + (Rel Users Followers)
+
+### Users Update [PATCH /api/v1/users/{username}/]
++ Parameters
+    + username: `jonatasbaldin` (string, required)- User's username.
+
++ Headers
+
+        Authorization: Token some-token-string
+    
++ Request (application/json)
+    + Attributes (Users PATCH)
+
++ Response 200 (application/json)
+
+    + Attributes
+        + pagination
+        + data (Users)
+        + links (array)
+            + (Rel User Self)
+            + (Rel Users Followers)
+
+### Users Delete [DELETE /api/v1/users/{username}/]
++ Parameters
+    + username: `jonatasbadlin` (string, required)- User's username.
+
++ Headers
+
+        Authorization: Token some-token-string
+    
++ Request (application/json)
+
++ Response 204 (application/json)
+
+
+# Data Structures
+
+## Users (object)
++ id: `d9b43773-c41c-4854-8e84-d0cd09365022` (string) - Users's ID.
++ name: `Jonatas Baldin` (string) - Users's name.
++ username: `@jonatasbaldin` (string) = Users's Twiter.
++ bio: `Lazzy to write a bio :(` (string) = Users's Twiter.
+
+## Users POST (object)
++ name: `Jonatas Baldin` (string, required) - Users's name.
++ username: `@jonatasbaldin` (string, required) = USers's Twiter.
++ bio: `Lazzy to write a bio :(` (string, optional) = Users's Twiter.
+
+## Users PATCH (object)
++ name: `Jonatas Baldin` (string, optional) - Users's name.
++ username: `@jonatasbaldin` (string, optional) = USers's Twiter.
++ bio: `Lazzy to write a bio :(` (string, optional) = Users's Twiter.
+
+## Pagination (object)
++ page_size: 20 (number) - Number of entries per page.
++ count: 1 (number) - Number of actual entries in the page.
++ next: `/api/v1/<section>/?page=2` (string) - Link to the next page.
++ current: 1 (number) - Index of the page.
++ previous: `null` (enum[string]) - Link to the previous page.
+    + null
+    + `/api/v1/<section>/?page=1` (string)
+
+## Rel Users Self (object)
++ rel: self (string) - Link relationship.
++ uri: `/api/v1/users/` - URI for the relationship.
+
+## Rel Users Followers (object)
++ rel: followers (string) - Link relationship.
++ uri: `/api/v1/users/jonatasbaldin/followers/` - URI for the relationship.
+
+## Rel User Self (object)
++ rel: self (string) - Link relationship.
++ uri: `/api/v1/users/jonatasbaldin/` - URI for the relationship.
